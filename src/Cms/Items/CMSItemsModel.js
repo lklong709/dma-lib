@@ -76,6 +76,35 @@ class ItemsItemModel extends BaseItemModel {
     };
   };
 
+  static __transformItemToApiOfCreation = (data) => {
+    let formData = new FormData();
+
+    const excluded = [CMS_ITEMS_DETAIL_FIELD_KEY.ID];
+
+    Object.keys(CMS_ITEMS_DETAIL_FIELD_KEY).forEach((index) => {
+      if (
+        !excluded.includes(CMS_ITEMS_DETAIL_FIELD_KEY[index]) &&
+        data[CMS_ITEMS_DETAIL_FIELD_KEY[index]]
+      ) {
+        formData.append(
+          [CMS_ITEMS_DETAIL_FIELD_KEY[index]],
+          data[CMS_ITEMS_DETAIL_FIELD_KEY[index]]
+        );
+      }
+    });
+
+    return formData;
+  };
+
+  static __transformItemToApiOfUpdation = (data) => {
+    let formData = {};
+    Object.keys(CMS_ITEMS_DETAIL_FIELD_KEY).forEach((index) => {
+      formData[CMS_ITEMS_DETAIL_FIELD_KEY[index]] = data[CMS_ITEMS_DETAIL_FIELD_KEY[index]];
+    });
+    return formData;
+  };
+  
+
   transformStatus = (status) => {
     switch (status) {
       case 1:

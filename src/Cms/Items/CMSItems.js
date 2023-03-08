@@ -109,7 +109,7 @@ class AesirxCmsItemsApiService extends Component {
     }
   };
 
-  getDetail = async (id) => {
+  getDetail = async (id = 0) => {
     try {
       const data = await this.route.getDetail(id);
       let results = null;
